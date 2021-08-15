@@ -335,7 +335,7 @@
                         <label>File upload</label>
                         <input type="file" name="img[]" class="file-upload-default">
                         <div class="input-group col-xs-12">
-                          <input type="text" class="form-control file-upload-info" disabled placeholder="Upload file">
+                          <input type="text" class="form-control file-upload-info" placeholder="Upload file">
                           <span class="input-group-append">
                             <button class="file-upload-browse btn btn-gradient-primary" type="button">Select</button>
                           </span>
@@ -355,11 +355,11 @@
                           <option>$100</option>
                         </select>
                         <span class="input-group-append">
-                          <button class="file-upload-browse btn btn-gradient-primary" type="button">Approve</button>
+                          <button class="file-upload-browse btn btn-gradient-primary" type="button" id="approve_button">Approve</button>
                         </span>
                       </div>
-                      <button type="submit" class="btn btn-gradient-primary mr-2">Submit</button>
-                      <button class="btn btn-light">Cancel</button>
+                      <button type="submit" class="btn btn-gradient-primary mr-2" id="upload_button">Upload</button>
+                      <button class="btn btn-light" ic="cancel_button">Cancel</button>
                     </form>
                   </div>
                 </div>
@@ -562,9 +562,13 @@
           }
         };      //Created check function to see if the MetaMask extension is installed
       
+        
+        import { Web3Storage } from 'web3.storage'
 
+        // Construct with token and endpoint
+        const client = new Web3Storage({ token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDc3NDZBZDJCYzZjNjUwRTQwMDA5QTU0YjVjNjQ1MjlkZEIzQzg2RGUiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2Mjg5ODkxNDU5NjYsIm5hbWUiOiJoYWNrZnMyMDIxIn0.atoH7Fi3ckoWxW_WDshG7cSz5vNDsF_vXmeaSuehLLo })
 
-
+        const rootCid = await client.put(fileInput.files, {name: 'cat pics', maxRetries: 3 })
 
 
 
