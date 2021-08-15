@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Dough Maker</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>		
+    <script src="https://cdn.ethers.io/lib/ethers-5.0.umd.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ethjs@0.3.4/dist/ethjs.min.js"></script>
+  </head>
+  <body>
+    <div class="container-scroller">
+      <!-- partial:partials/_navbar.html -->
+      <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+          <a class="navbar-brand brand-logo" href="index.html"><img src="assets/images/logo.svg" alt="logo" /></a>
+          <a class="navbar-brand brand-logo-mini" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo" /></a>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-stretch">
+          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="mdi mdi-menu"></span>
+          </button>
+        
+         
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+            <span class="mdi mdi-menu"></span>
+          </button>
+
+          <img src="assets/images/logo.svg" class="navbar-nav navbar-nav-right" />
+        </div>
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+           
+            <li class="nav-item">
+              <a class="nav-link" href="dataupload.html">
+                <span class="menu-title">Upload</span>
+                <i class="mdi mdi-cloud-upload menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">
+                <span class="menu-title">Home</span>
+                <i class="mdi mdi-home menu-icon"></i>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="row" id="proBanner">
+              <div class="col-12">
+                <span class="d-flex align-items-center purchase-popup">
+                  <button type="button" class="btn btn-gradient-dark btn-fw" id="network_connect">Connect Web3 & IPFS</button>                                    
+                </span>
+                <span id="blockchain_msgs"></span>
+              </div>
+            </div>
+            <div class="page-header">
+              <h3 class="page-title">
+                <span class="page-title-icon bg-gradient-dark text-white mr-2">
+                  <i class="mdi mdi-home"></i>
+                </span> Search Dashboard
+              </h3>
+              
+            </div>
+            <div class="row" >
+              <div class="col-4">
+                <div class="form-group">
+                <label for="search_field">Search</label>
+                <input type=text class="form-control" id="search_field" placeholder="Enter search term .... " />
+                <label for="search_categories">Categories</label>
+                <select class="form-control" id="search_categories">
+                    <option>Life</option>
+                    <option>Blockchain</option>
+                    <option>Fun</option>
+                    <option>Data</option>
+                </select>
+
+                <span class="d-flex align-items-center purchase-popup">
+                  <button type="button" class="btn btn-gradient-dark btn-fw" id="search_button">Search</button>                  
+                </span>
+              </div>
+              </div>
+
+              <div class="col-md-4 stretch-card grid-margin">
+                <div class="card bg-gradient-danger card-img-holder text-white">
+                  <div class="card-body">
+                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">New Categories <i class="mdi mdi-chart-line mdi-24px float-right"></i>
+                    </h4>
+                    <h2 class="mb-5"><span id="new_categories_span"></span></h2>
+                    <h6 class="card-text">Increased by 60%</h6>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4 stretch-card grid-margin">
+                <div class="card bg-gradient-info card-img-holder text-white">
+                  <div class="card-body">
+                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">New Keywords <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+                    </h4>
+                    <h2 class="mb-5"><span id="new_keywords_span"></span></h2>
+                    <h6 class="card-text">Decreased by 10%</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">              
+              <div class="col-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Results</h4> 
+                    <table>
+                      <tr>
+                        <td><button type="button" class="btn btn-gradient-dark btn-fw" id="save_results_button">Save</button></td>
+                        <td><input type="text" class="form-control text-sm-left" id="save_results_field" placeholder="Enter results name ..."/></td>
+                      </tr>                      
+                    </table>
+                    <div class="table-responsive">
+                      <table class="table" id="results_table">
+                        <thead>
+                          <tr>
+                            <th> Text Found </th>
+                            <th> Source </th>
+                            <th> Categories </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <p>
+                              Lorem ipsum dolor sit amet. 
+                              <br/>Sed nemo quidem est labore tempora et impedit 
+                              <br/>illo sed reiciendis galisum 
+                              <br/>sed asperiores maiores. 
+                              </p>
+                            </td>
+                            <td> test2nd.txt </td>
+                            <td>
+                              climate change, blockchain, finance, DeFi
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <p>
+                                Lorem ipsum dolor sit amet. 
+                                <br/>Sed nemo quidem est labore tempora et impedit 
+                                <br/>illo sed reiciendis galisum 
+                                <br/>sed asperiores maiores. 
+                                </p>
+                            </td>
+                            <td>test2nd.txt </td>
+                            <td>
+                              climate change, blockchain, finance, DeFi
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <p>
+                                Lorem ipsum dolor sit amet. 
+                                <br/>Sed nemo quidem est labore tempora et impedit 
+                                <br/>illo sed reiciendis galisum 
+                                <br/>sed asperiores maiores. 
+                                </p>                            
+                              </td>
+                            <td> test2nd.txt </td>
+                            <td>climate change, blockchain, finance, DeFi
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <p>
+                                Lorem ipsum dolor sit amet. 
+                                <br/>Sed nemo quidem est labore tempora et impedit 
+                                <br/>illo sed reiciendis galisum 
+                                <br/>sed asperiores maiores. 
+                                </p>
+                            </td>
+                            <td> test2nd.txt </td>
+                            <td>
+                              climate change, blockchain, finance, DeFi
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-8 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Latest Files Available </h4>
+                    <div class="table-responsive">
+                      <table class="table" id="latest_files_available_table">
+                        <thead>
+                          <tr>
+                            <th> Filename </th>
+                            <th> Description` </th>
+                            <th> Categories </th>
+                            <th> Price (USDC) </th>
+                            <th> </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td> anothertestfile.json </td>
+                            <td> work on testing  </td>
+                            <td>  blockchain, entertainment </td>
+                            <td>
+                                $50
+                            </td>
+                            <td><button type="button" class="btn btn-gradient-success btn-sm">Subscribe</button></td>
+                          </tr>
+                          <tr>
+                            <td> abettertestfile.txt </td>
+                            <td> work on testing </td>
+                            <td>  blockchain, entertainment </td>
+                            <td>
+                              $150
+                            </td>
+                            <td><button type="button" class="btn btn-gradient-success btn-sm">Subscribe</button></td>
+                          </tr>
+                          <tr>
+                            <td> acooltestfile.json </td>
+                            <td> work on testing  </td>
+                            <td> blockchain, entertainment </td>
+                            <td>
+                              $350
+                            </td>
+                            <td><button type="button" class="btn btn-gradient-success btn-sm">Subscribe</button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-4 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Current Subscriptions</h4>
+                    <div class="table-responsive">
+                      <table class="table" id="current_subscriptions_table">
+                        <thead>
+                          <tr>
+                            <th> Filename </th>
+                            <th> Expires </th>
+                            <th> </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              testtxt.json	
+                            </td>
+                            <td> Dec 5, 2021 </td>
+                            <td> <button type="button" class="btn btn-gradient-danger btn-sm">Cancel</button></td>
+                          </tr>
+                          <tr>
+                            <td>
+                              test2nd.txt	
+                            </td>
+  
+                            <td> Dec 12, 2021 </td>
+                            <td> <button type="button" class="btn btn-gradient-danger btn-sm">Cancel</button></td>
+                          </tr>
+                          <tr>
+                            <td>
+                              text3rd.json	
+                            </td>
+                            <td> Dec 16, 2021 </td>
+                            <td> <button type="button" class="btn btn-gradient-danger btn-sm">Cancel</button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+
+            <div class="row">              
+              <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Saved Results</h4>
+                    </p>
+                    <table class="table table-hover" id="saved_results_table">
+                      <thead>
+                        <tr>
+                          <th>Result name</th>
+                          <th>Category</th>
+                          <th>Valuation</th>
+                          <th>Reserve Price</th>
+                          <th> </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Messsy</td>
+                          <td>Flash</td>
+                          <td>$105.00</td>
+                          <td>                              
+                              <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text bg-gradient-priary text-white">$</span>
+                              </div>
+                              <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                              <div class="input-group-append">
+                                <span class="input-group-text">.00</span>
+                              </div>
+                            </div>
+                          </td>
+                                                  
+                          <td><button type="button" class="btn btn-gradient-info btn-sm">Auction</button></td>
+                        </tr>
+                        <tr>
+                          <td>John</td>
+                          <td>Premier</td>
+                          <td>$105.00</td>
+                          <td>                              
+                            <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text bg-gradient-priary text-white">$</span>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                            <div class="input-group-append">
+                              <span class="input-group-text">.00</span>
+                            </div>
+                          </div>
+                          </td>
+                                                
+                          <td><button type="button" class="btn btn-gradient-info btn-sm">Auction</button></td>
+                        </tr>                      
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">              
+              <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Result Auctions</h4>
+                    </p>
+                    <table class="table table-hover" id="results_auction_table">
+                      <thead>
+                        <tr>
+                          <th>Result name</th>
+                          <th>Category</th>
+                          <th>Valuation</th>
+                          <th>Reserve Price</th>
+                          <th>Last Bid</th>
+                          <th> </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Jacob</td>
+                          <td>Photoshop</td>
+                          <td>$105.00</td>
+                          <td>$75.00</td>
+                          <td>$85.00</td>
+                          <td><button type="button" class="btn btn-gradient-danger btn-sm">Cancel</button></td>
+                        </tr>                                              
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- content-wrapper ends -->
+          <!-- partial:partials/_footer.html -->
+          <footer class="footer">
+            <div class="container-fluid clearfix">
+              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2021 Block Star Logic</span>
+              <br/>
+              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Template by bootstrapdash.com </span>             </div>
+          </footer>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="assets/vendors/chart.js/Chart.min.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="assets/js/off-canvas.js"></script>
+    <script src="assets/js/hoverable-collapse.js"></script>
+    <script src="assets/js/misc.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="assets/js/dashboard.js"></script>
+    <script src="assets/js/todolist.js"></script>
+    <!-- End custom js for this page -->
+
+    <script>
+
+      const networkButton = document.getElementById('network_connect');
+      const blockchainmsgs = document.getElementById('blockchain_msgs');    
+      console.log("got connect button : "+ networkButton );  
+      var account;
+
+      //Created check function to see if the MetaMask extension is installed
+      const isMetaMaskInstalled = () => {
+        //Have to check the ethereum binding on the window object to see if it's installed
+        const { ethereum } = window;
+        return Boolean(ethereum && ethereum.isMetaMask);
+      };
+      
+      const MetaMaskClientCheck = () => {
+          //Now we check to see if Metmask is installed
+          if (!isMetaMaskInstalled()) {
+            console.log("metamask not installed");
+          //If it isn't installed we ask the user to click to install it
+          networkButton.innerText = 'Click here to install MetaMask!';
+          //When the button is clicked we call this function
+          networkButton.onclick = onClickInstall;
+          //The button is now disabled
+          networkButton.disabled = false;
+          } else {
+          //If it is installed we change our button text
+          console.log("metamask installed");
+          networkButton.addEventListener('click', () => {
+              getAccount();
+          });
+          }
+        };
+      const initialize = () => {							  
+          MetaMaskClientCheck();
+          configureButtons();
+          getStats(); 
+          getUserCategories();
+          getSaveResults();       
+
+      };
+      window.addEventListener('DOMContentLoaded', initialize);
+
+      async function getAccount() {
+        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+        account = accounts[0];
+        
+        var c = document.createAttribute("class");
+        blockchainmsgs.setAttribute("class", "d-flex align-items-center purchase-popup");
+        blockchain_msgs.innerHTML = "Your Wallet: &nbsp;<b>" + account +"</b>";
+        networkButton.innerText = "Web3 Connected";
+              
+      }      
+      
+      //We create a new MetaMask onboarding object to use in our app
+      //const onboarding = new MetaMaskOnboarding({ forwarderOrigin });
+
+        //This will start the onboarding proccess
+        const onClickInstall = () => {
+          networkButton.innerText = 'Onboarding in progress';
+          networkButton.disabled = true;
+          //On this object we have startOnboarding which will start the onboarding process for our end user
+          networkButton.startOnboarding();
+        };
+            
+        const onClickConnect = async () => {
+          try {
+          // Will open the MetaMask UI
+          // You should disable this button while the request is pending!
+          await ethereum.request({ method: 'eth_requestAccounts' });
+          } catch (error) {
+          console.error(error);
+          }
+        };      //Created check function to see if the MetaMask extension is installed
+
+      var ierc20abi; 
+      var idmstatsabi; 
+      var idmsearchabi; 
+      var idmauctionabi;
+
+      const ierc20address = "0x7ee06bad398828e0B21A37e74724D06Cc87122c9"; 
+      const idmstatsaddress = "0x18db8c25903AFBef699a2f84d3D8f6843A8D547B";
+      const idmsearchaddress = "0x18db8c25903AFBef699a2f84d3D8f6843A8D547B";
+      const idmauctionaddress = "0x18db8c25903AFBef699a2f84d3D8f6843A8D547B";
+      
+      console.log("getting IERC20 ...");
+
+      $.getJSON("abi/IDMAuction.json", function(json) {
+        console.log("auction");
+        console.log(json); // this will show the info it in firebug console
+        idmauctionabi = json; 
+      });
+      $.getJSON("abi/IDMSearch.json", function(json) {
+        console.log("search");
+        console.log(json); // this will show the info it in firebug console
+        idmsearchabi = json; 
+      });
+      $.getJSON("abi/IDMStats.json", function(json) {
+        console.log("stats");
+        console.log(json); // this will show the info it in firebug console
+        idmstatsabi = json; 
+      });
+
+      $.getJSON("abi/IERC20.json", function(json) {
+        console.log("ierc20");
+        console.log(json); // this will show the info it in firebug console
+        ierc20abi = json; 
+      });
+
+      const web3 = new Web3(ethereum);
+    
+      const ierc20contract = new web3.eth.Contract(ierc20abi, ierc20address);
+      const idmstatscontract = new web3.eth.Contract(idmstatsabi, idmstatsaddress);
+      const idmsearchcontract = new web3.eth.Contract(idmsearchabi, idmsearchaddress);
+      const idmauctioncontract = new web3.eth.Contract(idmauctionabi, idmauctionaddress);
+
+
+
+
+      
+      const newCategoriesSpan = document.getElementById('new_categories_span');
+      const newKeyWordsSpan = document.getElementById('new_keywords_span');
+      
+      var searchButton = document.getElementById('search_button');
+      var searchCategories = document.getElementById('search_categories');
+      var searchField = document.getElementById('search_field');
+      
+      const latestFilesAvailabeTable = document.getElementById('latest_files_available_table');
+      const currentSubscriptionsTable = document.getElementById('current_subscriptions_table');
+      
+      const resultsTable = document.getElementById('results_table');
+      var saveResultsButton = document.getElementById('save_results_button');
+      const saveResultsField = document.getElementById('save_results_field');
+
+      const savedResultsTable = document.getElementById('saved_results_table');
+      const resultsAuctionTable = document.getElementById('results_auction_table');
+
+
+
+      //view
+      function getStats() {
+          idmstatscontract.methods.getSearchDashboardStats().call({from: account })				
+				  .on('reciept', function(reciept){
+					console.log("got reciept : " + reciept);
+          newCategoriesSpan = 0;
+          newKeyWordsSpan = 0;
+
+				  }).on('error', console.error);
+      }
+
+      function getUserCategories() {
+        var cats = idmsearchcontract.methods.getUserCategories().call({from: account })				
+				  .on('reciept', function(reciept){
+					console.log("got reciept : " + reciept);
+					  
+				  }).on('error', console.error);
+
+        for (element in cats) {
+          var opt = document.createElement("option");
+          opt.value = element;
+          opt.innerHTML = element;
+          searchCategories.appendChild(opt);
+        }
+      }
+
+      function getSaveResults() {
+
+
+      }
+
+      function configureButtons(){
+        searchButton = search;
+        saveResultsButton = saveResults; 
+      }
+
+      // do 
+      const search = () => {
+
+        
+      };
+
+      const saveResults =() => {
+
+      };
+
+      function subscribe() {
+
+      }
+
+      function cancelSubscription() {
+
+      }
+
+
+
+
+    </script>
+  </body>
+</html>

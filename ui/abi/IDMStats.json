@@ -1,0 +1,81 @@
+[
+	{
+		"inputs": [],
+		"name": "getLatestSubscriptions",
+		"outputs": [
+			{
+				"internalType": "string[]",
+				"name": "_filenames",
+				"type": "string[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "_durations",
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "_earnings",
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "_startdates",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getRecentUploads",
+		"outputs": [
+			{
+				"internalType": "string[]",
+				"name": "_filename",
+				"type": "string[]"
+			},
+			{
+				"internalType": "string[]",
+				"name": "categories",
+				"type": "string[]"
+			},
+			{
+				"internalType": "string[]",
+				"name": "status",
+				"type": "string[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "_uploaddate",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getUploadDashboardStats",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "_weeklydatasubscriptions",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_weeklycancellations",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_outstandingaaveloans",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]

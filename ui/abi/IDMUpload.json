@@ -1,0 +1,123 @@
+[
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_filename",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_amount",
+				"type": "uint256"
+			}
+		],
+		"name": "borrow",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "_loanid",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "filename",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_cashoutamount",
+				"type": "uint256"
+			}
+		],
+		"name": "cashOut",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "_cashoutid",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_loanid",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_repaymentamount",
+				"type": "uint256"
+			}
+		],
+		"name": "repay",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "_repaymentid",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_filename",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_cid",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_description",
+				"type": "string"
+			},
+			{
+				"internalType": "string[]",
+				"name": "keywords",
+				"type": "string[]"
+			},
+			{
+				"internalType": "string[]",
+				"name": "_categories",
+				"type": "string[]"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_weeklyprice",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_language",
+				"type": "string"
+			}
+		],
+		"name": "upload",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "_uploadid",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "payable",
+		"type": "function"
+	}
+]

@@ -1,0 +1,156 @@
+[
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_subscribeid",
+				"type": "uint256"
+			}
+		],
+		"name": "cancelSubscription",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "_cancelid",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getsaveresults",
+		"outputs": [
+			{
+				"internalType": "string[]",
+				"name": "_resultnames",
+				"type": "string[]"
+			},
+			{
+				"internalType": "string[]",
+				"name": "_categories",
+				"type": "string[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "_valuations",
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "bool[]",
+				"name": "_auctioned",
+				"type": "bool[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_resultsname",
+				"type": "string"
+			},
+			{
+				"internalType": "string[]",
+				"name": "_textresults",
+				"type": "string[]"
+			},
+			{
+				"internalType": "string[]",
+				"name": "_filenames",
+				"type": "string[]"
+			},
+			{
+				"internalType": "string[]",
+				"name": "_categories",
+				"type": "string[]"
+			}
+		],
+		"name": "save",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "_saveid",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_query",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_category",
+				"type": "string"
+			}
+		],
+		"name": "search",
+		"outputs": [
+			{
+				"internalType": "string[]",
+				"name": "_cidresults",
+				"type": "string[]"
+			},
+			{
+				"internalType": "string[]",
+				"name": "_filenames",
+				"type": "string[]"
+			},
+			{
+				"internalType": "string[]",
+				"name": "_categories",
+				"type": "string[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_filename",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_duration",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_price",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_fee",
+				"type": "uint256"
+			}
+		],
+		"name": "subscribe",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "_subscribeid",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_expires",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "payable",
+		"type": "function"
+	}
+]
